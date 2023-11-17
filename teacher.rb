@@ -1,3 +1,4 @@
+# teacher.rb
 class Teacher < Person
   attr_reader :specialization
 
