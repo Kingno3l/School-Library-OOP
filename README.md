@@ -135,9 +135,9 @@ npm run test
 
 👤 **King Immanuel**
 
-- GitHub: [@Kingno3l](https://github.com/Kingno3l)
-- Twitter: [@Kingno3l_](https://twitter.com/digitalplanet_x)
-- LinkedIn: [@Kingno3l](https://www.linkedin.com/in/Kingno3l)
+- GitHub: [Kingno3l](https://github.com/Kingno3l)
+- Twitter: [Digital Planet X || King](https://twitter.com/digitalplanet_x)
+- LinkedIn: [Kingno3l](https://www.linkedin.com/in/Kingno3l)
 
 
 <!-- ## 🔭 Future Features <a name="future-features"></a>
