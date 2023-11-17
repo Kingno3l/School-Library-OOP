@@ -13,7 +13,7 @@
 
 # 📗 Table of Contents
 
-- [� Table of Contents](#-table-of-contents)
+- [📗 Table of Contents](#-table-of-contents)
 - [📖SCHOOL LIBRARY ](#school-library-)
   - [🛠 Built With ](#-built-with-)
     - [Tech Stack ](#tech-stack-)
@@ -136,7 +136,7 @@ npm run test
 👤 **King Immanuel**
 
 - GitHub: [@Kingno3l](https://github.com/Kingno3l)
-- Twitter: [@Kingno3l_](https://twitter.com/Kingno3lA)
+- Twitter: [@Kingno3l_](https://twitter.com/digitalplanet_x)
 - LinkedIn: [@Kingno3l](https://www.linkedin.com/in/Kingno3l)
 
 
