@@ -10,7 +10,7 @@
 
 # 📗 Table of Contents
 
-- [� Table of Contents](#-table-of-contents)
+- [📗 Table of Contents](#-table-of-contents)
 - [📖SCHOOL LIBRARY ](#school-library-)
   - [🛠 Built With ](#-built-with-)
     - [Tech Stack ](#tech-stack-)
@@ -21,6 +21,7 @@
     - [Install](#install)
     - [Usage](#usage)
   - [👥 Authors ](#-authors-)
+  - [🔭 Future Features ](#-future-features-)
   - [🤝 Contributing ](#-contributing-)
   - [⭐️ Show your support ](#️-show-your-support-)
   - [🙏 Acknowledgments ](#-acknowledgments-)
@@ -150,6 +151,13 @@ npm run test
 - Twitter: [Digital Planet X || King](https://twitter.com/digitalplanet_x)
 - LinkedIn: [Kingno3l](https://www.linkedin.com/in/Kingno3l)
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## 🔭 Future Features <a name="future-features"></a>
+
+- [ ] **[Add basic UI]**
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ## 🔭 Future Features <a name="future-features"></a>
 
