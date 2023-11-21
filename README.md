@@ -44,7 +44,7 @@
 <details>
   <summary>Client</summary>
   <ul>
-    <li><a href="https://Ruby.org/">Ruby</a></li>
+    <li><a href="https://www.ruby-lang.org/en/">Ruby</a></li>
     <!-- <li><a href="https://www.w3.org/">CSS</a></li>
     <li><a href="https://www.javascript.com/">JavaScript</a></li>
     <li><a href="https://webpack.js.org/">Webpack</a></li> -->

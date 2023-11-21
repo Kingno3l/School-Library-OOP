@@ -8,7 +8,6 @@ class Person < Nameable
     @age = age
     @id = generate_id
     @name = name
-    @age = age
     @parent_permission = parent_permission
   end
 
