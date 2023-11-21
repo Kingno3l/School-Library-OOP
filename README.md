@@ -2,9 +2,6 @@
 
 <div align="center">
 
-
-<!-- MAIN HEADING -->
-
   <h3><b>SCHOOL LIBRARY</b></h3>
 
 </div>
@@ -13,7 +10,7 @@
 
 # 📗 Table of Contents
 
-- [📗 Table of Contents](#-table-of-contents)
+- [� Table of Contents](#-table-of-contents)
 - [📖SCHOOL LIBRARY ](#school-library-)
   - [🛠 Built With ](#-built-with-)
     - [Tech Stack ](#tech-stack-)
@@ -65,6 +62,20 @@
   
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- ## 🚀 Live Demo <a name="live-demo"></a>
+
+> Add a link to your deployed project.
+
+- [Live Demo Link](https://ayo-on-code-meal-recipe.onrender.com)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
+
+
+<!-- ## Presentation Video <a name="video-presentation"></a>
+
+- [Presentation Video Link](https://www.loom.com/share/0e7f2b38c09949a4a3ba888b01543769?sid=b8349fd4-8efd-415b-8ca3-62f7d91e5341) -->
+
 
 <!-- GETTING STARTED -->
 
