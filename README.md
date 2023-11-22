@@ -2,9 +2,6 @@
 
 <div align="center">
 
-
-<!-- MAIN HEADING -->
-
   <h3><b>SCHOOL LIBRARY</b></h3>
 
 </div>
@@ -24,6 +21,7 @@
     - [Install](#install)
     - [Usage](#usage)
   - [👥 Authors ](#-authors-)
+  - [🔭 Future Features ](#-future-features-)
   - [🤝 Contributing ](#-contributing-)
   - [⭐️ Show your support ](#️-show-your-support-)
   - [🙏 Acknowledgments ](#-acknowledgments-)
@@ -46,7 +44,7 @@
 <details>
   <summary>Client</summary>
   <ul>
-    <li><a href="https://Ruby.org/">Ruby</a></li>
+    <li><a href="https://www.ruby-lang.org/en/">Ruby</a></li>
     <!-- <li><a href="https://www.w3.org/">CSS</a></li>
     <li><a href="https://www.javascript.com/">JavaScript</a></li>
     <li><a href="https://webpack.js.org/">Webpack</a></li> -->
@@ -65,6 +63,20 @@
   
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- ## 🚀 Live Demo <a name="live-demo"></a>
+
+> Add a link to your deployed project.
+
+- [Live Demo Link](https://ayo-on-code-meal-recipe.onrender.com)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
+
+
+<!-- ## Presentation Video <a name="video-presentation"></a>
+
+- [Presentation Video Link](https://www.loom.com/share/0e7f2b38c09949a4a3ba888b01543769?sid=b8349fd4-8efd-415b-8ca3-62f7d91e5341) -->
+
 
 <!-- GETTING STARTED -->
 
@@ -139,6 +151,13 @@ npm run test
 - Twitter: [Digital Planet X || King](https://twitter.com/digitalplanet_x)
 - LinkedIn: [Kingno3l](https://www.linkedin.com/in/Kingno3l)
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## 🔭 Future Features <a name="future-features"></a>
+
+- [ ] **Add basic UI**
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ## 🔭 Future Features <a name="future-features"></a>
 
