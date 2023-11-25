@@ -28,7 +28,7 @@ class App
     @people.each { |person| puts "Name: #{person.name} ID: #{person.id} Age: #{person.age}" if person.is_a?(Teacher) }
   end
 
-  def create_person(type, age, name, parent_permission: true, specialization: nil)
+  def create_person(type, id, age, classroom = nil, name, parent_permission: true, specialization: nil)
     if type == 'teacher'
       person = Teacher.new(age, name, specialization)
     elsif type == 'student'
@@ -38,7 +38,7 @@ class App
       return
     end
     @people << person
-    puts "#{type.capitalize} #{person.name} created successfully!"
+    # puts "#{type.capitalize} created successfully!"
   end
 
   def create_book(title, author)
