@@ -65,8 +65,12 @@ def main
         puts "Invalid person type choice."
       end
     when 4
-      puts "Enter book title and author:"
-      title, author = gets.chomp.split(',')
+      puts "Title:"
+      title = gets.chomp
+
+      puts "Author:"
+      author = gets.chomp
+
       app.create_book(title, author)
     when 5
       puts "Enter book index, person ID, and date (YYYY-MM-DD):"
