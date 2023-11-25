@@ -1,20 +1,20 @@
+require './person'
+
 class Student < Person
   attr_reader :classroom
 
-  def initialize(age, name, parent_permission)
-    super(age, name, parent_permission)
-    @classroom = nil
-  end
-  
-  def assign_to_classroom(classroom)
-    return unless classroom.is_a?(Classroom)
-
-    @classroom&.remove_student(self)
+  def initialize(age, classroom, name: 'Unknown', parent_permission: true)
+    super(age, name: name, parent_permission: parent_permission)
     @classroom = classroom
-    classroom.add_student(self)
+    classroom&.add_student(self)
   end
 
   def play_hooky
-    '¯\\(ツ)/¯'
+    '¯\(ツ)/¯'
+  end
+
+  def classroom=(classroom)
+    @classroom = classroom
+    classroom.students.push(self) unless classroom.students.include?(self)
   end
 end
