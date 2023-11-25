@@ -48,9 +48,19 @@ def main
         puts "Student created successfully!"
 
       when 2
-        puts "Enter teacher ID, age, name, parent permission (true/false):"
-        id, age, name, parent_permission = gets.chomp.split.map(&:to_i)
-        app.create_person('teacher', id, age, name, parent_permission)
+        id = rand(1..100) 
+        
+        puts "Age:"
+        age = gets.chomp.to_i
+
+        puts "Name:"
+        name = gets.chomp
+
+        puts "Specialization:"
+        specialization = gets.chomp
+
+        app.create_person('teacher', id, age, name, specialization)
+        puts "Teacher created successfully!"
       else
         puts "Invalid person type choice."
       end

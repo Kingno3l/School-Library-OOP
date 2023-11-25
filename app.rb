@@ -2,6 +2,7 @@ require_relative 'person'
 require_relative 'book'
 require_relative 'rental'
 require_relative 'student'
+require_relative 'teacher'
 
 class App
   attr_reader :people, :books, :rentals
@@ -22,19 +23,29 @@ class App
 
   # Method to list all people
   def list_all_people
-    # Display all people
+    puts "Students:"
     @people.each do |person|
-      puts "#{person.name} (ID: #{person.id})"
+      if person.is_a?(Student)
+        puts "Name: #{person.name} ID: #{person.id} Age: #{person.age}"
+      end
+    end
+
+    puts "\nTeachers:"
+    @people.each do |person|
+      if person.is_a?(Teacher)
+        puts "Name: #{person.name} ID: #{person.id} Age: #{person.age}"
+      end
     end
   end
 
+
   # Method to create a person (teacher or student)
-  def create_person(type, id, age, classroom = nil, name = 'Unknown', parent_permission: true, specialization: nil)
+  def create_person(type, id, age, classroom = nil, name, parent_permission: true, specialization: nil)
   if type == 'teacher'
-    person = Teacher.new(id, age, specialization, name, parent_permission)
+    person = Teacher.new(age, name, specialization)
   elsif type == 'student'
-    id ||= rand(1..100) # Auto-generate an ID if not provided
-    person = Student.new(id, age, name, parent_permission)
+    # id ||= rand(1..100) # Auto-generate an ID if not provided
+    person = Student.new(age, name, parent_permission)
   else
     puts 'Invalid person type!'
     return
