@@ -63,27 +63,41 @@ class App
   end
 
   def create_rental
+    selected_person = select_person
+    return puts 'Invalid person selection.' if selected_person.nil?
+
+    selected_book = select_book
+    return puts 'Currently, there is no book.' if selected_book.nil?
+
+    date = get_rental_date
+    rental = create_and_store_rental(selected_book, selected_person, date)
+
+    puts "Rental created for book: #{selected_book.title}, person: #{selected_person.name}, date: #{rental.date}"
+  end
+
+  private
+
+  def select_person
     RentalHelper.list_people_for_selection(@people)
     person_choice = gets.chomp.to_i
-    selected_person = @people[person_choice]
-    if selected_person.nil?
-      puts 'Invalid person selection.'
-      return
-    else
-      RentalHelper.list_books_for_selection(@books)
-      book_choice = gets.chomp.to_i
-      selected_book = @books[book_choice]
-    end
-    if selected_book.nil?
-      puts 'Invalid book selection.'
-      return
-    else
-      puts 'Enter the rental date (YYYY-MM-DD):'
-      date = gets.chomp
-      rental = Rental.new(date, selected_book, selected_person)
-    end
+    @people[person_choice]
+  end
+
+  def select_book
+    RentalHelper.list_books_for_selection(@books)
+    book_choice = gets.chomp.to_i
+    @books[book_choice]
+  end
+
+  def get_rental_date
+    puts 'Enter the rental date (YYYY-MM-DD):'
+    gets.chomp
+  end
+
+  def create_and_store_rental(book, person, date)
+    rental = Rental.new(date, book, person)
     @rentals << rental
-    puts "Rental created for book: #{selected_book.title}, person: #{selected_person.name}, date: #{rental.date}"
+    rental
   end
 
   def list_rentals_for_person
