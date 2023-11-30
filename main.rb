@@ -29,10 +29,6 @@ class MainMenu
 
   private
 
-  def quit
-    puts 'Thank you for using School Library. Goodbye!'
-    exit
-  end
 
   def invalid_choice
     puts 'Invalid choice. Please try again.'
