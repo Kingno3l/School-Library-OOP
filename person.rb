@@ -28,6 +28,15 @@ class Person < Nameable
     of_age? || @parent_permission
   end
 
+  def to_json(*_args)
+    {
+      'type' => 'person',
+      'name' => @name,
+      'age' => @age,
+      'id' => @id
+    }.to_json
+  end
+
   private
 
   def of_age?
