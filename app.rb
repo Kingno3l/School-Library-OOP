@@ -63,19 +63,20 @@ class App
   end
 
   def create_rental
-    list_people_for_selection(@people)
+    RentalHelper.list_people_for_selection(@people)
     person_choice = gets.chomp.to_i
     selected_person = @people[person_choice]
-
     if selected_person.nil?
       puts 'Invalid person selection.'
+      return
     else
-      list_books_for_selection(@books)
+      RentalHelper.list_books_for_selection(@books)
       book_choice = gets.chomp.to_i
       selected_book = @books[book_choice]
     end
     if selected_book.nil?
       puts 'Invalid book selection.'
+      return
     else
       puts 'Enter the rental date (YYYY-MM-DD):'
       date = gets.chomp
@@ -99,5 +100,10 @@ class App
     puts "Rentals for person #{person.name}:"
     rentals = @rentals.select { |r| r.person == person }
     rentals.each { |rental| puts "Book: #{rental.book.title}, Date: #{rental.date}" }
+  end
+
+  def quit
+    puts 'Thank you for using School Library. Goodbye!'
+    exit
   end
 end
