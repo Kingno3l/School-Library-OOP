@@ -123,9 +123,7 @@ class App
 
   # save to file
   def save_data_to_json(file_name, data)
-    File.open(file_name, 'w') do |file|
-      file.write(JSON.generate(data))
-    end
+    File.write(file_name, JSON.generate(data))
     puts "#{file_name} updated successfully."
   end
 
