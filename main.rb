@@ -1,60 +1,52 @@
 require_relative 'app'
 
-class Main
-  def initialize
-    @app = App.new
-    @choices = {
-      1 => -> { @app.list_all_books },
-      2 => -> { @app.list_all_people },
-      3 => -> { @app.create_person },
-      4 => -> { @app.create_book },
-      5 => -> { @app.create_rental },
-      6 => -> { @app.list_rentals_for_person },
-      7 => -> { quit }
+class MainMenu
+  def initialize(app)
+    @app = app
+    @menu_options = {
+      1 => :list_all_books,
+      2 => :list_all_people,
+      3 => :create_person,
+      4 => :create_book,
+      5 => :create_rental,
+      6 => :list_rentals_for_person,
+      7 => :quit
     }
   end
 
-  def main
-    loop do
-      display_menu
-      choice = gets.chomp.to_i
-      handle_choice(choice)
-    end
-  end
-
-  private
-
-  def display_menu
-    puts ''
+  def display
     puts 'Welcome to School Library!'
     puts '=================================='
     puts 'Please select an option:'
-    puts '1. List all books'
-    puts '2. List all people'
-    puts '3. Create a person'
-    puts '4. Create a book'
-    puts '5. Create a rental'
-    puts '6. List rentals for a person'
-    puts '7. Quit'
+    @menu_options.each { |key, value| puts "#{key}. #{value.to_s.tr('_', ' ').capitalize}" }
     puts '=================================='
   end
 
   def handle_choice(choice)
-    if @choices.key?(choice)
-      @choices[choice].call
-    else
-      invalid_choice
-    end
+    option = @menu_options[choice]
+    option ? @app.send(option) : invalid_choice
   end
 
-  def quit
-    puts 'Thank you for using School Library. Goodbye!'
-    exit
-  end
+  private
 
   def invalid_choice
     puts 'Invalid choice. Please try again.'
   end
 end
 
-Main.new.main
+class Main
+  def initialize
+    @app = App.new
+    @main_menu = MainMenu.new(@app)
+  end
+
+  def run
+    loop do
+      @main_menu.display
+      choice = gets.chomp.to_i
+      @main_menu.handle_choice(choice)
+    end
+  end
+end
+
+Main.new.run
