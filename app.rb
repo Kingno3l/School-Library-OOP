@@ -69,7 +69,7 @@ class App
     selected_book = select_book
     return puts 'Currently, there is no book.' if selected_book.nil?
 
-    date = get_rental_date
+    date = rental_date
     rental = create_and_store_rental(selected_book, selected_person, date)
 
     puts "Rental created for book: #{selected_book.title}, person: #{selected_person.name}, date: #{rental.date}"
@@ -89,7 +89,7 @@ class App
     @books[book_choice]
   end
 
-  def get_rental_date
+  def rental_date
     puts 'Enter the rental date (YYYY-MM-DD):'
     gets.chomp
   end
