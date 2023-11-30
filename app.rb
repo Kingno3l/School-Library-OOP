@@ -120,4 +120,48 @@ class App
     puts 'Thank you for using School Library. Goodbye!'
     exit
   end
+
+  # save to file
+  def save_data_to_json(file_name, data)
+    File.open(file_name, 'w') do |file|
+      file.write(JSON.generate(data))
+    end
+    puts "#{file_name} updated successfully."
+  end
+
+  def save_books_to_json
+    save_data_to_json('books.json', @books)
+  end
+
+  def save_people_to_json
+    save_data_to_json('people.json', @people)
+  end
+
+  def save_rentals_to_json
+    save_data_to_json('rentals.json', @rentals)
+  end
+
+  # Loading data from JSON files
+  def load_data_from_json(file_name)
+    return [] unless File.exist?(file_name)
+
+    JSON.parse(File.read(file_name)).map do |record|
+      # You'll need to customize this based on your object structure
+      # Example: Book.new(record['title'], record['author'])
+      # Example: Person.new(record['name'], record['age'])
+      # Example: Rental.new(record['date'], record['book'], record['person'])
+    end
+  end
+
+  def load_books_from_json
+    @books = load_data_from_json('books.json')
+  end
+
+  def load_people_from_json
+    @people = load_data_from_json('people.json')
+  end
+
+  def load_rentals_from_json
+    @rentals = load_data_from_json('rentals.json')
+  end
 end
