@@ -15,21 +15,20 @@ class App
     @rentals = []
   end
 
+  include PersonCreator
+  include RentalHelper
+
   def list_all_books
     puts 'List of all books:'
-    @books.each do |book|
-      puts "Title: \"#{book.title}\", Author: #{book.author}"
-    end
+    @books.each { |book| puts "Title: \"#{book.title}\", Author: #{book.author}" }
   end
 
   def list_all_people
     puts 'List of all people:'
-    @people.each do |person|
-      puts "[#{person.class}]: Name: #{person.name}, Age: #{person.age}, ID: #{person.id}"
-    end
+    @people.each { |person| puts "[#{person.class}]: Name: #{person.name}, Age: #{person.age}, ID: #{person.id}" }
   end
 
-  def create_person()
+  def create_person
     puts 'Do you want to create a student (1) or a teacher (2)? [Input the number]:'
     type = gets.chomp.to_i
 
@@ -40,9 +39,9 @@ class App
     age = gets.chomp.to_i
 
     if type == 1
-      person = create_student(name, age)
+      person = PersonCreator.create_student(name, age)
     elsif type == 2
-      person = create_teacher(name, age)
+      person = PersonCreator.create_teacher(name, age)
     else
       puts 'Invalid person type. Please try again.'
     end
@@ -57,6 +56,7 @@ class App
 
     puts 'Enter the book\'s author:'
     author = gets.chomp
+
     book = Book.new(title, author)
     @books << book
     puts "Book created with title: #{book.title}, author: #{book.author}"
@@ -85,7 +85,7 @@ class App
     puts "Rental created for book: #{selected_book.title}, person: #{selected_person.name}, date: #{rental.date}"
   end
 
-  def list_rentals_for_person()
+  def list_rentals_for_person
     puts 'Enter the person\'s ID:'
     person_id = gets.chomp.to_i
 
@@ -98,8 +98,6 @@ class App
 
     puts "Rentals for person #{person.name}:"
     rentals = @rentals.select { |r| r.person == person }
-    rentals.each do |rental|
-      puts "Book: #{rental.book.title}, Date: #{rental.date}"
-    end
+    rentals.each { |rental| puts "Book: #{rental.book.title}, Date: #{rental.date}" }
   end
 end
