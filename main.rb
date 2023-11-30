@@ -29,7 +29,6 @@ class MainMenu
 
   private
 
-
   def invalid_choice
     puts 'Invalid choice. Please try again.'
   end
