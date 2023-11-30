@@ -13,7 +13,7 @@ class Book
 
   def to_json(*_args)
     {
-      'type' => "book",
+      'type' => 'book',
       'title' => @title,
       'author' => @author,
       'rentals' => @rentals.map { |rental| rental.to_json }

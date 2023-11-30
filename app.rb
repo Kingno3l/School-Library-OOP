@@ -7,7 +7,6 @@ require_relative 'create_person'
 require_relative 'create_rental'
 require 'json'
 
-
 class App
   attr_accessor :books, :people, :rentals
 
@@ -149,7 +148,6 @@ class App
     end
   end
 
-
   def save_books_to_json
     puts "Saving books..."
     save_data_to_json('books.json', @books)
@@ -165,14 +163,12 @@ class App
     save_data_to_json('rentals.json', @rentals)
   end
 
-
   # Loading data from JSON files
   def load_data_from_json(file_name)
     return [] unless File.exist?(file_name) && !File.zero?(file_name)
 
     json_content = File.read(file_name)
     return [] if json_content.strip.empty? # Handles empty JSON content
-
 
     JSON.parse(File.read(file_name)).map do |record|
       case record['type']
@@ -189,7 +185,6 @@ class App
       end
     end.compact # Remove any nil values from the resulting array
   end
-
 
   def load_books_from_json
     @books = load_data_from_json('books.json')
