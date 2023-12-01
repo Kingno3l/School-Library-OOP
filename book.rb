@@ -16,7 +16,7 @@ class Book
       'type' => 'book',
       'title' => @title,
       'author' => @author,
-      'rentals' => @rentals.map { |rental| rental.to_json }
+      'rentals' => @rentals.map(&:to_json)
     }.to_json
   end
 end
