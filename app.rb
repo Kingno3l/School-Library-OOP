@@ -51,11 +51,11 @@ class App
       puts 'Invalid person type. Please try again.'
     end
 
-    if person
-      @people << person
-      puts "#{person.class} #{person.name} created with ID: #{person.id}"
-      save_people_to_json  # Save people data after successful creation
-    end
+    return unless person
+
+    @people << person
+    puts "#{person.class} #{person.name} created with ID: #{person.id}"
+    save_people_to_json # Save people data after successful creation
   end
 
   def create_book
@@ -66,11 +66,11 @@ class App
     author = gets.chomp
 
     book = Book.new(title, author)
-    if book
-      @books << book
-      puts "Book created with title: #{book.title}, author: #{book.author}"
-      save_books_to_json  # Save books data after successful creation
-    end
+    return unless book
+
+    @books << book
+    puts "Book created with title: #{book.title}, author: #{book.author}"
+    save_books_to_json # Save books data after successful creation
   end
 
   def create_rental
@@ -83,11 +83,11 @@ class App
     date = rental_date
     rental = create_and_store_rental(selected_book, selected_person, date)
 
-    if rental
-      @rentals << rental
-      puts "Rental created for book: #{selected_book.title}, person: #{selected_person.name}, date: #{rental.date}"
-      save_rentals_to_json  # Save rentals data after successful creation
-    end
+    return unless rental
+
+    @rentals << rental
+    puts "Rental created for book: #{selected_book.title}, person: #{selected_person.name}, date: #{rental.date}"
+    save_rentals_to_json # Save rentals data after successful creation
   end
 
   private
@@ -138,34 +138,32 @@ class App
 
   # save to file
   def save_data_to_json(file_name, data)
-    begin
-      puts "Saving data to #{file_name}..."
-      File.write(file_name, JSON.generate(data))
-      puts "#{file_name} updated successfully."
-    rescue StandardError => e
-      puts "Error saving data to #{file_name}: #{e.message}"
-      e.backtrace.each { |line| puts line } # This will print the backtrace for better debugging
-    end
+    puts "Saving data to #{file_name}..."
+    File.write(file_name, JSON.generate(data))
+    puts "#{file_name} updated successfully."
+  rescue StandardError => e
+    puts "Error saving data to #{file_name}: #{e.message}"
+    e.backtrace.each { |line| puts line } # This will print the backtrace for better debugging
   end
 
   def save_books_to_json
-    puts "Saving books..."
+    puts 'Saving books...'
     save_data_to_json('books.json', @books)
   end
 
   def save_people_to_json
-    puts "Saving people..."
+    puts 'Saving people...'
     save_data_to_json('people.json', @people)
   end
 
   def save_rentals_to_json
-    puts "Saving rentals..."
+    puts 'Saving rentals...'
     save_data_to_json('rentals.json', @rentals)
   end
 
   # Loading data from JSON files
   def load_data_from_json(file_name)
-    return [] unless File.exist?(file_name) && !File.zero?(file_name)
+    return [] unless File.exist?(file_name) && !File.empty?(file_name)
 
     json_content = File.read(file_name)
     return [] if json_content.strip.empty? # Handles empty JSON content
