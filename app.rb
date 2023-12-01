@@ -5,14 +5,75 @@ require_relative 'student'
 require_relative 'teacher'
 require_relative 'create_person'
 require_relative 'create_rental'
+require 'json'
+
+module FileHelper
+  def valid_json_file?(file_name)
+    File.exist?(file_name) && !File.empty?(file_name)
+  end
+
+  def read_json_content(file_name)
+    File.read(file_name).strip
+  end
+
+  def save_data_to_json(file_name, data)
+    puts "Saving data to #{file_name}..."
+    File.write(file_name, JSON.generate(data))
+    puts "#{file_name} updated successfully."
+  rescue StandardError => e
+    puts "Error saving data to #{file_name}: #{e.message}"
+    e.backtrace.each { |line| puts line }
+  end
+end
+
+module InputHelper
+  def get_user_input(prompt)
+    puts prompt
+    gets.chomp
+  end
+
+  def get_user_input_integer(prompt)
+    get_user_input(prompt).to_i
+  end
+end
+
+def select_person
+  RentalHelper.list_people_for_selection(@people)
+  person_choice = gets.chomp.to_i
+  @people[person_choice]
+end
+
+def select_book
+  RentalHelper.list_books_for_selection(@books)
+  book_choice = gets.chomp.to_i
+  @books[book_choice]
+end
+
+def rental_date
+  puts 'Enter the rental date (YYYY-MM-DD):'
+  gets.chomp
+end
+
+def create_and_store_rental(book, person, date)
+  rental = Rental.new(date, book, person)
+  @rentals << rental
+  rental
+end
 
 class App
+  include FileHelper
+  include InputHelper
+
   attr_accessor :books, :people, :rentals
 
   def initialize
     @books = []
     @people = []
     @rentals = []
+
+    load_books_from_json
+    load_people_from_json
+    load_rentals_from_json
   end
 
   include PersonCreator
@@ -29,14 +90,9 @@ class App
   end
 
   def create_person
-    puts 'Do you want to create a student (1) or a teacher (2)? [Input the number]:'
-    type = gets.chomp.to_i
-
-    puts 'Enter the person\'s name:'
-    name = gets.chomp
-
-    puts 'Enter the person\'s age:'
-    age = gets.chomp.to_i
+    type = get_user_input_integer('Do you want to create a student (1) or a teacher (2)? [Input the number]:')
+    name = get_user_input('Enter the person\'s name:')
+    age = get_user_input_integer('Enter the person\'s age:')
 
     if type == 1
       person = PersonCreator.create_student(name, age)
@@ -46,20 +102,23 @@ class App
       puts 'Invalid person type. Please try again.'
     end
 
+    return unless person
+
     @people << person
     puts "#{person.class} #{person.name} created with ID: #{person.id}"
+    save_people_to_json
   end
 
   def create_book
-    puts 'Enter the book\'s title:'
-    title = gets.chomp
-
-    puts 'Enter the book\'s author:'
-    author = gets.chomp
+    title = get_user_input('Enter the book\'s title:')
+    author = get_user_input('Enter the book\'s author:')
 
     book = Book.new(title, author)
+    return unless book
+
     @books << book
     puts "Book created with title: #{book.title}, author: #{book.author}"
+    save_books_to_json
   end
 
   def create_rental
@@ -72,32 +131,11 @@ class App
     date = rental_date
     rental = create_and_store_rental(selected_book, selected_person, date)
 
-    puts "Rental created for book: #{selected_book.title}, person: #{selected_person.name}, date: #{rental.date}"
-  end
+    return unless rental
 
-  private
-
-  def select_person
-    RentalHelper.list_people_for_selection(@people)
-    person_choice = gets.chomp.to_i
-    @people[person_choice]
-  end
-
-  def select_book
-    RentalHelper.list_books_for_selection(@books)
-    book_choice = gets.chomp.to_i
-    @books[book_choice]
-  end
-
-  def rental_date
-    puts 'Enter the rental date (YYYY-MM-DD):'
-    gets.chomp
-  end
-
-  def create_and_store_rental(book, person, date)
-    rental = Rental.new(date, book, person)
     @rentals << rental
-    rental
+    puts "Rental created for book: #{selected_book.title}, person: #{selected_person.name}, date: #{rental.date}"
+    save_rentals_to_json
   end
 
   def list_rentals_for_person
@@ -123,32 +161,74 @@ class App
 
   # save to file
   def save_data_to_json(file_name, data)
+    puts "Saving data to #{file_name}..."
     File.write(file_name, JSON.generate(data))
     puts "#{file_name} updated successfully."
+  rescue StandardError => e
+    puts "Error saving data to #{file_name}: #{e.message}"
+    e.backtrace.each { |line| puts line } # This will print the backtrace for better debugging
   end
 
   def save_books_to_json
+    puts 'Saving books...'
     save_data_to_json('books.json', @books)
   end
 
   def save_people_to_json
+    puts 'Saving people...'
     save_data_to_json('people.json', @people)
   end
 
   def save_rentals_to_json
+    puts 'Saving rentals...'
     save_data_to_json('rentals.json', @rentals)
   end
 
   # Loading data from JSON files
   def load_data_from_json(file_name)
-    return [] unless File.exist?(file_name)
+    return [] unless valid_json_file?(file_name)
 
-    JSON.parse(File.read(file_name)).map do |record|
-      # You'll need to customize this based on your object structure
-      # Example: Book.new(record['title'], record['author'])
-      # Example: Person.new(record['name'], record['age'])
-      # Example: Rental.new(record['date'], record['book'], record['person'])
+    json_content = read_json_content(file_name)
+    return [] if json_content.empty?
+
+    parse_json_records(json_content)
+  end
+
+  def valid_json_file?(file_name)
+    File.exist?(file_name) && !File.empty?(file_name)
+  end
+
+  def read_json_content(file_name)
+    File.read(file_name).strip
+  end
+
+  def parse_json_records(json_content)
+    JSON.parse(json_content).map { |record| create_record_from_json(record) }.compact
+  end
+
+  def create_record_from_json(record)
+    case record['type']
+    when 'book'
+      create_book_record(record)
+    when 'person'
+      create_person_record(record)
+    when 'rental'
+      create_rental_record(record)
     end
+  end
+
+  def create_book_record(record)
+    Book.new(record['title'], record['author'])
+  end
+
+  def create_person_record(record)
+    Person.new(record['age'], name: record['name'])
+  end
+
+  def create_rental_record(record)
+    book = find_book_by_title(record['book_title'])
+    person = find_person_by_name(record['person_name'])
+    Rental.new(record['date'], book, person)
   end
 
   def load_books_from_json
